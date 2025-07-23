@@ -22,7 +22,7 @@ const Navbar = () => {
   }, [darkMode]);
 
   return (
-    <nav className="sticky top-0 z-50 bg-blue-400 text-white px-6 py-6 shadow-md">
+    <nav className="sticky top-0 z-50 bg-blue-700 text-white px-6 py-6 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap">
         {/* Logo + Mobile Toggle */}
         <div className="flex items-center justify-between w-full md:w-auto">
