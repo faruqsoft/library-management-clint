@@ -1,7 +1,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Navigation, Autoplay } from 'swiper/modules'; 
+import { Navigation, Autoplay } from 'swiper/modules';
+import { Typewriter } from 'react-simple-typewriter';
+
 const slides = [
   {
     title: 'Welcome to Our Library',
@@ -24,8 +26,8 @@ const Banner = () => {
   return (
     <Swiper
       navigation={true}
-      autoplay={{ delay: 3000, disableOnInteraction: false }} 
-      modules={[Navigation, Autoplay]} 
+      autoplay={{ delay: 3000, disableOnInteraction: false }}
+      modules={[Navigation, Autoplay]}
       className="mySwiper h-[400px] rounded-xl overflow-hidden mb-8"
     >
       {slides.map((slide, index) => (
@@ -35,7 +37,17 @@ const Banner = () => {
             style={{ backgroundImage: `url(${slide.img})` }}
           >
             <div className="bg-black/60 p-6 rounded">
-              <h2 className="text-3xl font-bold">{slide.title}</h2>
+              <h2 className="text-3xl font-bold text-red-500">
+                <Typewriter
+                  words={[slide.title]}
+                  loop={false}
+                  cursor
+                  cursorStyle="_"
+                  typeSpeed={80}
+                  deleteSpeed={50}
+                  delaySpeed={1000}
+                />
+              </h2>
               <p className="text-lg mt-2">{slide.description}</p>
             </div>
           </div>
