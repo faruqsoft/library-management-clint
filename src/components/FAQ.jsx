@@ -54,7 +54,7 @@ const FAQ = () => {
         />
       </h2>
 
-      <p className="text-center text-lg md:text-xl text-gray-500 dark:text-gray-300 mb-10">
+      <p className="text-center text-lg md:text-xl text-gray-100 dark:text-gray-100 mb-10">
         Everything you need to know about using our digital library system.
       </p>
 

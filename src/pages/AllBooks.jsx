@@ -19,7 +19,6 @@ const AllBooks = () => {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/books?title=${search}&category=${category}`);
       const data = await res.json();
       setBooks(data);
-      console.log("Fetched books:", data);
     } catch (error) {
       console.error("Error fetching books:", error);
     } finally {
@@ -53,13 +52,12 @@ const AllBooks = () => {
           placeholder="Search by title"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input input-bordered w-full md:w-[230px]  bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+          className="input input-bordered w-full md:w-[230px] bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
         />
-
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="select select-bordered w-full md:w-[200px]  bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
+          className="select select-bordered w-full md:w-[200px] bg-white dark:bg-gray-800 text-gray-800 dark:text-white"
         >
           <option value="">All Categories</option>
           <option value="Programming">Programming</option>
@@ -68,14 +66,12 @@ const AllBooks = () => {
           <option value="Drama">Drama</option>
           <option value="Sci-Fi">Sci-Fi</option>
         </select>
-
         <button
           onClick={() => setOnlyAvailable(!onlyAvailable)}
           className={`btn w-full md:w-auto ${onlyAvailable ? 'btn-success' : 'btn-outline'}`}
         >
-          {onlyAvailable ? ' Available Only' : 'Show Available'}
+          {onlyAvailable ? 'Available Only' : 'Show Available'}
         </button>
-
         <select
           value={viewMode}
           onChange={(e) => setViewMode(e.target.value)}
@@ -95,7 +91,7 @@ const AllBooks = () => {
               {filteredBooks.map(book => (
                 <motion.div
                   key={book._id}
-                  className="border rounded-lg shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col"
+                  className="bg-white dark:bg-gray-800 shadow-md rounded-xl overflow-hidden hover:shadow-xl transition-all flex flex-col"
                   whileHover={{ scale: 1.02 }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -106,35 +102,50 @@ const AllBooks = () => {
                     alt={book.title}
                     className="h-48 object-cover w-full"
                   />
-                  <div className="p-4 flex flex-col justify-between flex-1">
-                    <div className="space-y-1">
-                      <h3 className="text-lg font-semibold">{book.title}</h3>
-                      <p><span className="font-medium">Author:</span> {book.author}</p>
-                      <p><span className="font-medium">Category:</span> {book.category}</p>
-                      <p><span className="font-medium">Quantity:</span> {book.quantity}</p>
-                      <p><span className="font-medium">Rating:</span> {book.rating}</p>
-                      {/* <div>
-                        <span className="font-medium">Rating:</span>
-                        <ReactStars value={book.rating || 0} edit={false} size={24} isHalf={true} />
-                      </div> */}
+                  <div className="p-4 flex-1 flex flex-col justify-between">
+                    <div className="grid grid-cols-2 gap-3 text-sm text-gray-700 dark:text-gray-200">
+                      <div>
+                        <p className="font-semibold">Title: <span>{book.title}</span></p>
+                     
+                      </div>
+                      <div>
+                        <p className="font-semibold">Author: <span>{book.author}</span></p>
+                    
+                      </div>
+                      <div>
+                        <p className="font-semibold">Category: <span>{book.category}</span></p>
+                       
+                      </div>
+                      <div>
+                        <p className="font-semibold"> Quantity: <span>{book.quantity}</span></p>
+                       
+                      </div>
+                      <div className="col-span-2">
+                        <p className="font-semibold">Rating:</p>
+                        <ReactStars
+                          value={book.rating || 0}
+                          edit={false}
+                          size={22}
+                          isHalf={true}
+                          activeColor="yellow"
+                        />
+                      </div>
                     </div>
-                    <div className="mt-4">
-                      <button
-                        onClick={() => navigate(`/updateBook/${book._id}`)}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded"
-                      >
-                        Update
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => navigate(`/updateBook/${book._id}`)}
+                      className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition"
+                    >
+                      Update
+                    </button>
                   </div>
                 </motion.div>
               ))}
             </div>
           ) : (
             // Table View
-            <div className="overflow-x-auto bg-white rounded shadow">
+            <div className="overflow-x-auto bg-white dark:bg-gray-900 dark:text-gray-50 rounded shadow">
               <table className="table w-full text-sm">
-                <thead className="bg-gray-100">
+                <thead className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white">
                   <tr>
                     <th>Image</th>
                     <th>Title</th>
@@ -155,10 +166,15 @@ const AllBooks = () => {
                       <td>{book.author}</td>
                       <td>{book.category}</td>
                       <td>{book.quantity}</td>
-                      <td>{book.rating}</td>
-                      {/* <td>
-                        <ReactStars value={book.rating || 0} edit={false} size={20} isHalf={true} />
-                      </td> */}
+                      <td>
+                        <ReactStars
+                          value={book.rating || 0}
+                          edit={false}
+                          size={20}
+                          isHalf={true}
+                          activeColor="#ef4444"
+                        />
+                      </td>
                       <td>
                         <button
                           onClick={() => navigate(`/updateBook/${book._id}`)}
@@ -174,7 +190,6 @@ const AllBooks = () => {
             </div>
           )}
 
-          {/* No Results */}
           {!loading && filteredBooks.length === 0 && (
             <p className="text-center mt-10 text-gray-500 text-lg">No books found.</p>
           )}
